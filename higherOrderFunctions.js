@@ -6,6 +6,24 @@ var myObj = {
   job: "Engineer"
 }
 
+function print(value) {
+  console.log(value);
+}
+
+print(myArray[1]);
+
+print(myObj.age);
+
+print(myObj['age']);
+
+function addTen(x) {
+  return x + 10;
+}
+
+function even(x) {
+  return x % 2 === 0;
+}
+
 function each(collection, callback) {
   if (Array.isArray(collection)) {
     for (var i = 0; i < collection.length; i++) {
@@ -24,14 +42,6 @@ function map(collection, callback) {
     result.push(callback(element));
   });
   return result;
-}
-
-function add10(x){
-  return x + 10;
-}
-
-function even(x) {
-  return x % 2 === 0;
 }
 
 function filter(collection, callback) {
@@ -58,7 +68,6 @@ filter(newArray, function(element) {
 filter(newArray, function(element) {
   return element[0] > element[element.length-1];
 })
-
 
 function some(collection, callback) {
   var result = false;
@@ -90,9 +99,13 @@ function add(x, y) {
   return x + y;
 }
 
+function mult(x, y) {
+  return x * y;
+}
+
 function reduce(collection, callback, initial) {
   var accumulator = initial;
-  each (collection, function(element) {
+  each(collection, function(element) {
     if (accumulator == undefined) {
       accumulator = element;
     } else {
