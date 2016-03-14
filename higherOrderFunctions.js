@@ -10,11 +10,12 @@ function print(value) {
   console.log(value);
 }
 
-print(myArray[1]);
+// print(myArray[1]);
 
-print(myObj.age);
+// print(myObj.age);
 
-print(myObj['age']);
+// print(myObj['age']);
+
 
 function addTen(x) {
   return x + 10;
@@ -54,20 +55,13 @@ function filter(collection, callback) {
   return result;
 }
 
-filter(myArray, function(element) {
-  return element != myArray[myArray.length-1];
-})
-
-var newArray = [ [1,2,3,4], [4,3,2,1], [5,6,7,8], [8,7,6,5] ];
-
-filter(newArray, function(element) {
-  return element[0] > element[element.length-1]
-})
-
+/*
+var newArray = [ [1,2,3,4,5], [4,3,2], [5,6,7,8], [8,7,6,5] ];
 
 filter(newArray, function(element) {
   return element[0] > element[element.length-1];
 })
+*/
 
 function some(collection, callback) {
   var result = false;
@@ -121,10 +115,6 @@ function contains(collection, target) {
   }, false)
 }
 
-var sample = [1,2,1,3,1,2]
-
-// {1 : 3, 2 : 2, 3 : 1}
-
 function histogram(collection) {
   return reduce(collection, function(accumulator, element) {
     if (accumulator[element] === undefined) {
@@ -136,6 +126,11 @@ function histogram(collection) {
   }, {})
 }
 
+// Histogram result:
+// var sample = [1,2,1,3,1,2]
+// {1 : 3, 2 : 2, 3 : 1}
+
+// Alternative to histogram using ternary expression
 function histogram(collection) {
   return reduce(collection, function(accumulator, element) {
     accumulator[element] = accumulator[element] != undefined ? accumulator[element] + 1 : 1;
@@ -143,33 +138,37 @@ function histogram(collection) {
   }, {});
 }
 
-var stooges = { moe : "Moses", larry : "Lawrence", curly : "Jerome" };
 
-function notLarry(element) {
-  return element !== "larry";
-}
-
-
-pick(stooges, notLarry);
-pick(stooges, "moe", "curly")
-
-function pick(obj) {
-  var result = {}
+function pick(collection) {
+  var result = {};
   if (typeof arguments[1] == "function") {
-    for (var prop in obj) {
+    for (var prop in collection) {
       if (arguments[1](prop)) {
-        result[prop] = obj[prop];
+        result[prop] = collection[prop];
       }
     }
   } else {
     for (var i = 1; i < arguments.length; i++) {
-      result[arguments[i]] = obj[arguments[i]];
+      if (collection[arguments[i]]) {
+        result[arguments[i]] = collection[arguments[i]];
+      }
     }
   }
   return result;
 }
 
 
+var stooges = { moe : "Moses", larry : "Lawrence", curly : "Jerome" };
+
+function notLarry(element) {
+  return element !== "larry";
+}
+
+pick(stooges, notLarry);
+pick(stooges, "moe", "curly", "joe", "mary")
+
+
+// arguments list example
 function sum() {
   var total = 0;
   for (var i = 0; i < arguments.length; i++) {
@@ -178,9 +177,11 @@ function sum() {
   return total;
 }
 
+// Closure example
 function makeAdder(x) {
   return function(y) {
     return z + x + y;
   }
 }
+
 
